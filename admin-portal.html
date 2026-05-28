@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Portal - Barangay Sibulan</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- jsPDF & AutoTable for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+    
+    <style>
+        :root {
+            --primary-color: #006400; 
+            --secondary-color: #FFD700;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTuTK34t1qtwwqcbjnlGwLFFOhunOG2eXoe4A&s');
+            background-size: cover;
+            background-attachment: fixed;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            background-color: var(--primary-color);
+            color: white;
+            padding-top: 20px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar-brand {
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            padding: 0 15px;
+        }
+        
+        .sidebar-menu a {
+            display: block;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 15px 25px;
+            border-left: 4px solid transparent;
+            transition: 0.3s;
+        }
+        
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            border-left-color: var(--secondary-color);
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+        }
+
+        .card-dashboard {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            background: white;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <div class="sidebar-brand">
+            Barangay Sibulan<br>
+            <small style="font-size: 0.7em; font-weight: 400;">Admin Portal</small>
+        </div>
+        <div class="sidebar-menu">
+            <a href="#" class="active" onclick="switchView('dashboard', this)">Dashboard</a>
+            <a href="#" onclick="switchView('officials', this)">Manage Officials</a>
+            <a href="#" onclick="switchView('settings', this)">Site Settings</a>
+            <a href="#" id="logoutBtn" style="margin-top: 50px; border-top: 1px solid rgba(255,255,255,0.1);">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="container-fluid">
+            
+            <!-- Dashboard View -->
+            <div id="dashboard-view">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="fw-bold text-dark">Certificate Requests</h2>
+                    <button class="btn btn-success" onclick="exportToPDF()">Export Recent Requests</button>
+                </div>
+
+                <!-- Table -->
+                <div class="card-dashboard p-4">
+                    <h5 class="mb-3">Recent Requests</h5>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Resident Name</th>
+                                    <th>Type</th>
+                                    <th>Purpose</th>
+                                    <th>Contact</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableBody">
+                                <!-- Data will be loaded here via JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Manage Officials View -->
+            <div id="officials-view" style="display: none;">
+                <h2 class="fw-bold text-dark mb-4">Manage Officials</h2>
+                
+                <!-- Add/Edit Form -->
+                <div class="card-dashboard p-4 mb-4">
+                    <h5>Add / Edit Official</h5>
+                    <form id="officialForm">
+                        <input type="hidden" id="editIndex" value="-1">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="offName" placeholder="Full Name (e.g. Hon. Juan Cruz)" required>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" class="form-control" id="offPosition" placeholder="Position (e.g. Kagawad)" required>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="file" class="form-control" id="offImage" accept="image/*">
+                            </div>
+                            <div class="col-md-2">
+                                <button type="submit" class="btn btn-primary w-100" id="saveBtn">Save Official</button>
+                                <button type="button" class="btn btn-secondary w-100 mt-2 d-none" id="cancelBtn" onclick="resetForm()">Cancel</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Officials List -->
+                <div class="card-dashboard p-4">
+                    <h5>Current Officials List</h5>
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="officialsTableBody">
+                            <!-- JS will load officials here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Site Settings View -->
+            <div id="settings-view" style="display: none;">
+                <h2 class="fw-bold text-dark mb-4">Site Settings</h2>
+                <div class="card-dashboard p-4">
+                    <h5>Footer Contact Details</h5>
+                    <form id="footerForm">
+                        <div class="mb-3">
+                            <label class="form-label">Office Name</label>
+                            <input type="text" class="form-control" id="setOffice" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address Line 1</label>
+                            <input type="text" class="form-control" id="setAddr1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address Line 2</label>
+                            <input type="text" class="form-control" id="setAddr2" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Telefax</label>
+                            <input type="text" class="form-control" id="setTelefax" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mobile Phone</label>
+                            <input type="text" class="form-control" id="setMobile" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="text" class="form-control" id="setEmail" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Settings</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="database.js"></script>
+    <script>
+        // 1. Check if User is Logged In
+        if (!sessionStorage.getItem('isLoggedIn')) {
+            window.location.href = 'login.html';
+        }
+
+        // 2. Logout Function
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            const role = sessionStorage.getItem('userRole');
+            sessionStorage.removeItem('isLoggedIn');
+            sessionStorage.removeItem('userRole');
+            sessionStorage.removeItem('currentUser');
+            
+            if (role === 'cpe-admin') {
+                window.location.href = 'cpe/cpe-login.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        });
+
+        // 3. Load Requests from LocalStorage
+        let requestsData = []; // Store for PDF Export
+
+        async function loadData() {
+            const tbody = document.getElementById('tableBody');
+            const requests = await db.getRequests();
+            requestsData = requests; // Save for PDF
+            
+            tbody.innerHTML = '';
+
+            if (requests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center">No requests found.</td></tr>';
+                return;
+            }
+
+            requests.forEach(req => {
+                const statusBadge = req.status === 'Pending' ? 'bg-warning text-dark' : 'bg-success';
+                
+                const row = `
+                    <tr>
+                        <td>${req.date}</td>
+                        <td>${req.name}</td>
+                        <td>${req.type}</td>
+                        <td>${req.purpose}</td>
+                        <td>${req.contact}</td>
+                        <td><span class="badge ${statusBadge}">${req.status}</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-success" onclick="updateStatus('${req.id}', 'Approved')">Approve</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteRequest('${req.id}')">Delete</button>
+                        </td>
+                    </tr>
+                `;
+                tbody.innerHTML += row;
+            });
+        }
+
+        // Initial Load
+        loadData();
+
+        // 4. Action Functions
+        window.updateStatus = async function(id, newStatus) {
+            await db.updateRequestStatus(id, newStatus);
+            loadData();
+        };
+
+        window.deleteRequest = async function(id) {
+            if(confirm('Are you sure you want to delete this request?')) {
+                await db.deleteRequest(id);
+                loadData();
+            }
+        };
+
+        // 5. View Switching Logic
+        window.switchView = function(viewName, link) {
+            // Save active view to persist on refresh
+            sessionStorage.setItem('activeView', viewName);
+
+            // Hide all views
+            document.getElementById('dashboard-view').style.display = 'none';
+            document.getElementById('officials-view').style.display = 'none';
+            document.getElementById('settings-view').style.display = 'none';
+            
+            // Show selected view
+            document.getElementById(viewName + '-view').style.display = 'block';
+
+            // Update Sidebar Active State
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            
+            if (link) {
+                link.classList.add('active');
+            } else {
+                // Find link if not passed (e.g. on page load)
+                const activeLink = document.querySelector(`.sidebar-menu a[onclick*="'${viewName}'"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+
+            if(viewName === 'officials') {
+                loadAdminOfficials();
+            } else if(viewName === 'settings') {
+                loadSettings();
+            }
+        };
+
+        // Restore last active view on load
+        const savedView = sessionStorage.getItem('activeView') || 'dashboard';
+        switchView(savedView);
+
+        // 8. Export to PDF Function
+        window.exportToPDF = function() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Header
+            doc.setFontSize(18);
+            doc.text("Barangay Sibulan - Recent Requests", 14, 15);
+            doc.setFontSize(10);
+            doc.setTextColor(100);
+            doc.text(`Generated on: ${new Date().toLocaleString()}`, 14, 22);
+
+            // Data Preparation
+            const tableColumn = ["Date", "Resident Name", "Type", "Purpose", "Contact", "Status"];
+            const tableRows = requestsData.map(req => [
+                req.date,
+                req.name,
+                req.type,
+                req.purpose,
+                req.contact,
+                req.status
+            ]);
+
+            // Generate Table
+            doc.autoTable({
+                head: [tableColumn],
+                body: tableRows,
+                startY: 30,
+                theme: 'grid',
+                styles: { fontSize: 8 },
+                headStyles: { fillColor: [0, 100, 0] } // Dark Green header matching theme
+            });
+
+            doc.save("Recent_Requests.pdf");
+        };
+
+        // 6. Officials Management Logic
+        async function loadAdminOfficials() {
+            const officials = await db.getOfficials();
+            const tbody = document.getElementById('officialsTableBody');
+            tbody.innerHTML = '';
+
+            if (officials.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="4" class="text-center text-muted">No officials added yet.</td></tr>';
+                return;
+            }
+
+            officials.forEach((off, index) => {
+                const imgUrl = off.img || 'https://via.placeholder.com/150';
+                tbody.innerHTML += `
+                    <tr>
+                        <td><img src="${imgUrl}" alt="Official" style="width: 50px; height: 50px; object-fit: cover; border-radius: 50%;"></td>
+                        <td>${off.name}</td>
+                        <td>${off.position}</td>
+                        <td>
+                            <button class="btn btn-sm btn-warning me-1" onclick="editOfficial('${off.id}', '${off.name}', '${off.position}')">Edit</button>
+                            <button class="btn btn-sm btn-danger" onclick="deleteOfficial('${off.id}')">Remove</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        document.getElementById('officialForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const name = document.getElementById('offName').value;
+            const position = document.getElementById('offPosition').value;
+            const imageInput = document.getElementById('offImage');
+            const id = document.getElementById('editIndex').value; // This is now the ID
+            
+            const saveToStorage = async (imgData) => {
+                if(id === '-1') {
+                    // Add New
+                    await db.addOfficial({ name, position, img: imgData || 'https://via.placeholder.com/150' });
+                    alert("Official Added!");
+                } else {
+                    // Update Existing
+                    const updateData = { name, position };
+                    if (imgData) updateData.img = imgData;
+                    await db.updateOfficial(id, updateData);
+                    alert("Official Updated!");
+                }
+                resetForm();
+                loadAdminOfficials();
+            };
+
+            if (imageInput.files && imageInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveToStorage(e.target.result);
+                };
+                reader.readAsDataURL(imageInput.files[0]);
+            } else {
+                // No file selected: Use placeholder for new, or keep existing for edit
+                saveToStorage(null);
+            }
+        });
+
+        window.editOfficial = function(id, name, position) {
+            document.getElementById('offName').value = name;
+            document.getElementById('offPosition').value = position;
+            document.getElementById('offImage').value = ''; // Clear file input
+            document.getElementById('editIndex').value = id;
+            document.getElementById('saveBtn').textContent = 'Save Changes';
+            document.getElementById('cancelBtn').classList.remove('d-none');
+        };
+
+        window.deleteOfficial = async function(id) {
+            if(confirm("Are you sure you want to remove this official?")) {
+                await db.deleteOfficial(id);
+                loadAdminOfficials();
+            }
+        };
+
+        window.resetForm = function() {
+            document.getElementById('officialForm').reset();
+            document.getElementById('editIndex').value = '-1';
+            document.getElementById('saveBtn').textContent = 'Save Official';
+            document.getElementById('cancelBtn').classList.add('d-none');
+        };
+
+        // 7. Settings Management Logic
+        async function loadSettings() {
+            const defaultFooter = {
+                office: "INVESTMENT PROMOTIONS AND TOURISM OFFICE",
+                addr1: "(Provincial Agri-Industrial Center)",
+                addr2: "Municipal Hall, Sta. Cruz, Davao del Sur",
+                telefax: "Telefax No. +63822720741",
+                mobile: "Mobile Phone No. +639203136792 / +639208567991",
+                email: "E-mail: paic_stacruz@yahoo.com"
+            };
+            
+            const footer = (await db.getFooter()) || defaultFooter;
+            document.getElementById('setOffice').value = footer.office;
+            document.getElementById('setAddr1').value = footer.addr1;
+            document.getElementById('setAddr2').value = footer.addr2;
+            document.getElementById('setTelefax').value = footer.telefax;
+            document.getElementById('setMobile').value = footer.mobile;
+            document.getElementById('setEmail').value = footer.email;
+        }
+
+        document.getElementById('footerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const footer = {
+                office: document.getElementById('setOffice').value,
+                addr1: document.getElementById('setAddr1').value,
+                addr2: document.getElementById('setAddr2').value,
+                telefax: document.getElementById('setTelefax').value,
+                mobile: document.getElementById('setMobile').value,
+                email: document.getElementById('setEmail').value
+            };
+            
+            await db.saveFooter(footer);
+            alert('Footer settings saved successfully!');
+        });
+    </script>
+</body>
+</html>
