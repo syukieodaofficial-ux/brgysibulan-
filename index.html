@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Barangay Sibulan | Sta. Cruz</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #006400; /* Dark Green for Nature/Agriculture */
+            --secondary-color: #FFD700; /* Gold for Progress */
+            --accent-color: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Navbar Styling */
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* Logo Styling */
+        .logo-main {
+            height: 60px; /* Adjust size of Sibulan Logo */
+            margin-right: 10px;
+        }
+
+        .logo-secondary {
+            height: 50px; /* Adjust size of Sta. Cruz Logo */
+            margin-left: 10px;
+            padding-left: 10px;
+            border-left: 1px solid #ddd;
+        }
+
+        /* Hero Section */
+        .hero-section {
+            background: url('https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEgZfk-w5ifSaHrvBJyGKSVjfGbGqTjuInR1jrBzuKFUj4UYreIgxrH9AgtLhNtjzaHaFQRWg4PJSoWnq2hXALM5G23xjU5k5xSX2RnY5umdTqDrlUaLOOfjvdzoMgD8H8wdytVBREqqb48p/s1600/P5231441.JPG');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .hero-btn {
+            background-color: var(--secondary-color);
+            color: #000;
+            font-weight: 600;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            transition: transform 0.3s;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            background-color: #e6c200;
+        }
+
+        /* Section Headers */
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: var(--secondary-color);
+            margin: 10px auto 0;
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 40px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="main-site-content">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <a class="navbar-brand me-0" href="#">
+                    <!-- Main Logo: Sibulan Cluster 1 -->
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvVa_0HC2bVWr8t1FTaF7rfOe1bsA_txpz1Q&s" alt="Barangay Sibulan Logo" class="logo-main">
+                    
+                    <div class="d-flex flex-column">
+                        <span style="line-height: 1.2;">Barangay Sibulan</span>
+                        <span style="font-size: 0.8rem; color: #666; font-weight: 400;">Cluster 1 & 2, Sta. Cruz</span>
+                    </div>
+                </a>
+                <!-- Secondary Logo: Sta. Cruz -->
+                <a href="https://stacruz.gov.ph/" target="_blank">
+                    <img src="https://stacruz.gov.ph/wp-content/uploads/2018/08/Logo-Banner.png" alt="Sta. Cruz Logo" class="logo-secondary d-none d-md-block">
+                </a>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#sitios">Sitios</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#services">Services</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#request">Request Certs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#updates">Updates</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#officials">Officials</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Maayong Pag-abot sa Barangay Sibulan</h1>
+            <p class="lead mb-4">Cluster 1 & 2, Municipality of Sta. Cruz, Davao del Sur</p>
+            <p class="mb-5">Serving the community with transparency, integrity, and dedication.</p>
+            <a href="#services" class="btn hero-btn">View Services</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container text-center">
+            <h2 class="section-title">About Our Barangay</h2>
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-8">
+                    <p class="text-muted">
+                        Barangay Sibulan Cluster 1 & 2 is dedicated to the development and welfare of its residents. 
+                        Under the guidance of the Municipality of Sta. Cruz, we strive to maintain peace and order, 
+                        promote sustainable livelihood, and provide efficient public services to every household.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sitios Section -->
+    <section id="sitios" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Sitios of Barangay Sibulan</h2>
+                <p class="text-muted">Recognized Sitios and References</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush shadow-sm mb-4">
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://en.wikipedia.org/wiki/Tudaya_Falls" target="_blank" class="text-decoration-none text-dark">Tudaya</a></div>
+                                    <small class="text-muted">Waterfall, widely known</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.sunstar.com.ph/davao/feature/hedcor-leads-environmental-conservation-drive-in-davao" target="_blank" class="text-decoration-none text-dark">Pogpog</a></div>
+                                    <small class="text-muted">Listed in voter docs</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://davaodelsur.gov.ph/governor-douglas-cagas-spearheaded-the-groundbreaking-ceremony-of-10-6-km-long-concrete-road-at-sitio-piping/" target="_blank" class="text-decoration-none text-dark">Piping</a></div>
+                                    <small class="text-muted">Infrastructure project</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.google.com/maps/search/Sitio+Batuno+Sibulan+Sta+Cruz" target="_blank" class="text-decoration-none text-dark">Batuno</a></div>
+                                    <small class="text-muted">Community & distributions post</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.google.com/maps/search/Sitio+Tubison+Sibulan+Sta+Cruz" target="_blank" class="text-decoration-none text-dark">Tubison</a></div>
+                                    <small class="text-muted">Local road name / hamlet</small>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-group list-group-flush shadow-sm mb-4">
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.openstreetmap.org/search?query=Tungcaling%20Sibulan" target="_blank" class="text-decoration-none text-dark">Tungcaling</a></div>
+                                    <small class="text-muted">OSM hamlet near Sibulan</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.openstreetmap.org/search?query=Landig%20Sibulan" target="_blank" class="text-decoration-none text-dark">Landig Uno</a></div>
+                                    <small class="text-muted">OSM & bridge project</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.openstreetmap.org/search?query=Landig%20Sibulan" target="_blank" class="text-decoration-none text-dark">Landig Dos</a></div>
+                                    <small class="text-muted">OSM</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.google.com/search?q=Sitio+Gurem+Sibulan+hike" target="_blank" class="text-decoration-none text-dark">Gurem</a></div>
+                                    <small class="text-muted">Mentioned in local hike write-up</small>
+                                </li>
+                                <li class="list-group-item">
+                                    <div class="fw-bold"><a href="https://www.google.com/search?q=Sitio+Dariango+Sibulan" target="_blank" class="text-decoration-none text-dark">Dariango</a></div>
+                                    <small class="text-muted">Mentioned in hike write-up</small>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-5">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Barangay Services</h2>
+            </div>
+            <div class="row mt-5 g-4">
+                <!-- Service 1 -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Barangay Clearance</h5>
+                            <p class="card-text">Issuance of clearances for employment, business permits, and residency proof.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 2 -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Health Center</h5>
+                            <p class="card-text">Basic healthcare services, vaccinations, and maternal care for residents.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Service 3 -->
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Peace & Order</h5>
+                            <p class="card-text">Barangay Tanod assistance and dispute resolution (Lupon Tagapamayapa).</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Request Certificate Section -->
+    <section id="request" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Request Certificate</h2>
+                <p>Fill out the form below to request a document online.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-8 col-lg-6">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <form id="requestForm">
+                                <div class="mb-3">
+                                    <label for="fullName" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" placeholder="Full Name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="certType" class="form-label">Type of Certificate</label>
+                                    <select class="form-select" id="certType" required>
+                                        <option value="" selected disabled>Choose...</option>
+                                        <option value="clearance">Barangay Clearance</option>
+                                        <option value="indigency">Certificate of Indigency</option>
+                                        <option value="residency">Certificate of Residency</option>
+                                        <option value="business">Business Permit</option>
+                                    </select>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="purpose" class="form-label">Purpose</label>
+                                    <textarea class="form-control" id="purpose" rows="3" placeholder="Example: For Employment" required></textarea>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="contactNum" class="form-label">Contact Number</label>
+                                    <input type="tel" class="form-control" id="contactNum" placeholder="0912 345 6789" required>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100" style="background-color: var(--primary-color);">Submit Request</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Certificate Requests Section -->
+    <section id="recent-requests" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Recent Certificate Requests</h2>
+                <p>Check the status of recently submitted requests.</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-10 col-lg-8">
+                    <div class="card shadow-sm">
+                        <div class="card-body p-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Name</th>
+                                            <th>Type</th>
+                                            <th>Purpose</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="recentRequestsTableBody">
+                                        <!-- Recent requests will be loaded here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Facebook Updates Section -->
+    <section id="updates" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Latest Updates</h2>
+                <p>Stay connected with our official Facebook pages</p>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-md-6 col-lg-5 mb-4 d-flex justify-content-center">
+                    <!-- Barangay Page Plugin -->
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fp%2FBarangay-Sibulan-Sta-Cruz-Davao-del-Sur-100075944857123%2F&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+                <div class="col-md-6 col-lg-5 mb-4 d-flex justify-content-center">
+                    <!-- SK Page Plugin -->
+                    <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D61554077906750&tabs=timeline&width=340&height=500&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId" width="340" height="500" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Officials Section Placeholder -->
+    <section id="officials" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Barangay Officials</h2>
+                <p>Meet the leaders serving Barangay Sibulan Cluster 1 & 2</p>
+            </div>
+            <div class="row text-center justify-content-center" id="officials-container">
+                <!-- Officials will be loaded here dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="section-title">Our Location</h2>
+                <p>Sibulan Barangay Hall (Old)</p>
+            </div>
+            <div class="ratio ratio-16x9 shadow-sm" style="border-radius: 10px; overflow: hidden;">
+                <iframe src="https://maps.google.com/maps?q=Sibulan+Barangay+Hall+Old&t=&z=15&ie=UTF8&iwloc=&output=embed" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Barangay Sibulan - Cluster 1 & 2</h5>
+                    <p id="footer-contact-info">Loading contact info...</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <p>&copy; <span id="currentYear"></span> Barangay Sibulan Cluster 1 & 2. All Rights Reserved.</p>
+                    <div id="currentDateTime" class="small mb-2" style="color: rgba(255,255,255,0.7);"></div>
+                    <small>Official Website</small>
+                </div>
+            </div>
+        </div>
+    </footer>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="database.js"></script>
+    <!-- Script to Handle Form Submission -->
+    <script>
+        document.getElementById('requestForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            // Get values
+            const name = document.getElementById('fullName').value;
+            const type = document.getElementById('certType').value;
+            const purpose = document.getElementById('purpose').value;
+            const contact = document.getElementById('contactNum').value;
+            const date = new Date().toLocaleDateString();
+            
+            // Create request object
+            const newRequest = {
+                // id: Date.now(), // Firebase auto-generates ID
+                date: date,
+                name: name,
+                type: type,
+                purpose: purpose,
+                contact: contact,
+                status: 'Pending'
+            };
+
+            await db.addRequest(newRequest);
+
+            alert('Request submitted successfully! Please wait for confirmation.');
+            document.getElementById('requestForm').reset();
+        });
+
+        // Auto Date and Time in Footer
+        function updateFooterClock() {
+            const now = new Date();
+            document.getElementById('currentYear').textContent = now.getFullYear();
+            document.getElementById('currentDateTime').textContent = now.toLocaleString('en-US', { dateStyle: 'full', timeStyle: 'medium' });
+        }
+        setInterval(updateFooterClock, 1000);
+        updateFooterClock();
+
+        // Load Officials Dynamically
+        async function loadOfficials() {
+            // Check if database is connected
+            if (typeof db === 'undefined') {
+                console.error("Database Error: database.js not loaded.");
+                return;
+            }
+
+            const container = document.getElementById('officials-container');
+            let officials = await db.getOfficials();
+            
+            console.log("Officials Data Loaded:", officials); // Check Console (F12)
+
+            container.innerHTML = '';
+            
+            if (officials.length === 0) {
+                container.innerHTML = '<div class="col-12 text-center"><p class="text-muted">Official list is currently being updated.</p></div>';
+                return;
+            }
+
+            officials.forEach(off => {
+                const imgUrl = off.img || 'https://via.placeholder.com/150';
+                container.innerHTML += `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <img src="${imgUrl}" class="rounded-circle mb-3" alt="${off.position}" style="width: 150px; height: 150px; object-fit: cover;">
+                                <h5 class="card-title">${off.name}</h5>
+                                <p class="text-muted">${off.position}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+        loadOfficials();
+
+        // Load Recent Requests Dynamically
+        async function loadRecentRequests() {
+            const tbody = document.getElementById('recentRequestsTableBody');
+            const requests = await db.getRequests();
+            
+            tbody.innerHTML = '';
+
+            if (requests.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="text-center text-muted">No recent requests to display.</td></tr>';
+                return;
+            }
+
+            // Display only the 5 most recent requests
+            requests.slice(0, 5).forEach(req => {
+                const statusBadge = req.status === 'Pending' ? 'bg-warning text-dark' : 'bg-success';
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${req.date}</td>
+                        <td>${req.name}</td>
+                        <td>${req.type}</td>
+                        <td>${req.purpose}</td>
+                        <td><span class="badge ${statusBadge}">${req.status}</span></td>
+                    </tr>
+                `;
+            });
+        }
+        loadRecentRequests();
+
+        // Load Footer Settings
+        async function loadFooterSettings() {
+            const defaultFooter = {
+                office: "INVESTMENT PROMOTIONS AND TOURISM OFFICE",
+                addr1: "(Provincial Agri-Industrial Center)",
+                addr2: "Municipal Hall, Sta. Cruz, Davao del Sur",
+                telefax: "Telefax No. +63822720741",
+                mobile: "Mobile Phone No. +639203136792 / +639208567991",
+                email: "E-mail: paic_stacruz@yahoo.com"
+            };
+            
+            const footer = (await db.getFooter()) || defaultFooter;
+            const content = `<strong>${footer.office}</strong><br>
+                             ${footer.addr1}<br>
+                             ${footer.addr2}<br>
+                             ${footer.telefax}<br>
+                             ${footer.mobile}<br>
+                             ${footer.email}`;
+            document.getElementById('footer-contact-info').innerHTML = content;
+        }
+        loadFooterSettings();
+    </script>
+</body>
+</html>
